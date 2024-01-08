@@ -1,5 +1,6 @@
 package com.example.FirstRestApi;
 
+import org.apache.catalina.UserDatabase;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
@@ -10,7 +11,7 @@ import java.util.Set;
 @RestController // this tells spring Application that  API written this class
 
 public class ApiClass {
-    // this is databse like using hashMap
+    // this is datafbase like using hashMap
     Map<Integer,User> userDB = new HashMap<>();
     @GetMapping("/getWeatherUpdate")
     public String getWeatherUpdate(){
@@ -36,8 +37,15 @@ public class ApiClass {
     }
 
     @GetMapping("getUserInformation")
-    public User getUser(@RequestParam("userId") int userId){
+    public User getUser(@RequestParam("userId") Integer userId){
         User user = userDB.get(userId);
         return user;
+    }
+
+    @GetMapping("/getUser/{userId}")
+    public User getUser(@PathVariable("userId") int userId){
+        User user = userDB.get(userId);
+        return user;
+
     }
 }
